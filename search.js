@@ -19,35 +19,61 @@ function binarySearch(arr, value, start, end) {
 
 //out of bounds of array
   if (start > end) {
-    return false;
+    return -1;
   }
 //halve the array
   const index = Math.floor((start + end)/2);
   const item = arr[index];
   console.log(item);
+      console.log(start, end);
+    if (item == value) {
+        return index;
+    }
+    else if (item < value) {
+        return binarySearch(array, value, index + 1, end);
+    }
+    else if (item > value) {
+        return binarySearch(array, value, start, index - 1);
+    }
+};
   
-}
+
 
 const searchArr = [1, 3, 4, 6, 8, 10, 12, 20];
 
 // console.log(binarySearch(searchArr,12,0,searchArr.length));
-
-function depthFunc(values=[], tree){
-   
-  if(tree.left){
-    if(node.left){
-    depthFunc(values.push(node.left));
+class BinaryTree {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
     }
-    //values [node.left1, node.left2, node.left3]
-  }   
-  //if all values of tree.left are in array search 
-  //through tree.right branch
-  else {
-    depthFunc(values.push(node.right));
+
+ depthFirst(values=[]){
+  if(this.left){
+    values = this.left.depthFirst(values);
   }
-  
+  //this just pushed in the root node
+    values.push(this.value);
+  if(this.right) {
+  //then search through right branch
+    values = this.right.depthFirst(values);
+  }
+  return values; 
+}
 }
 
-  
-  //then search through right branch
+ /*const library = [
+    "005.133 Mike Cowlishaw: The REXX Language",
+    "005.133 Sams: Teach Yourself C++ In 21 Days",
+    "005.133 Bjarne Stroustrup: The C++ Programming Language",
+    "005.2762 Douglas Crockford: JavaScript: The Good Parts",
+    "005.2762 David Flanagan: JavaScript: The Definitive Guide",
+    "005.44684 Meinhard Schmidt: Windows Vista for Dummies", //It certainly is...
+    "220.52081 Zondervan: NIV Study Bible",
+    "231.7652 Dr Russell Humphries: Starlight and Time",
+    "623.82509051 Frederick Thomas Jane: Jane's Fighting Ships", //So far, the ships are winning.
+    "796.8092 Chuck Norris: The Official Chuck Norris Fact Book",
+    ] 
+    */
 
