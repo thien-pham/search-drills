@@ -50,8 +50,6 @@ function binarySearch(arr, value, start, end) {
   }
 }
 
-
-
 const searchArr = [1, 3, 4, 6, 8, 10, 12, 20];
 
 // console.log(binarySearch(searchArr,12,0,searchArr.length));
@@ -90,17 +88,42 @@ class BinaryTree {
       }
     }
   }
-
+//this func finds the left most value in the tree
+//QUESTION: prints out values in pre-order manner, why?
   inOrder(){
-    //if a left node exists, set node.left as this.node 
-    //call inOrder
+    //if a left key exists, set key.left as current key 
     if(this.left){
-      inOrder(this.left);
+      this.left.inOrder();
     }
-    else{
-      //this.right
+    //console here because the current key is the left most key
+    console.log(this.key);
+    if(this.right){
+      this.right.inOrder();
     }
+  }
 
+  preOrder(){
+    //we console here because we want the root key to display first 
+    //then display this.left 
+    //then display this.right 
+    console.log(this.key);
+    if(this.left){
+      this.left.preOrder();
+    }
+    if(this.right){
+      this.right.preOrder();
+    }
+  }
+
+  postOrder(){
+    if(this.left){
+      this.left.postOrder();
+    }
+    if(this.right){
+      this.right.postOrder();
+    }
+    console.log(this.key);
+    //we console here because we want the root to display last
   }
 
   depthFirst(values=[]){
@@ -117,14 +140,13 @@ class BinaryTree {
   }
 }
 
-const numArr = [89, 30, 25, 32, 72, 70, 51, 42,
-  25, 24, 53, 55, 78, 50, 13, 40,
-  48, 32, 26, 2, 14, 33, 45, 72, 56,
-  44, 21, 88, 27, 68, 15, 93, 98, 73,
-  28, 16, 46, 87, 28, 65, 38, 67, 16,
-  85, 63, 23, 69, 64, 91, 9, 70, 81,
-  27, 97, 82, 6, 88, 3, 7, 46, 13, 11,
-  64, 31, 26, 38, 28, 13, 17, 69, 90,
+const numArr = [89, 30, 25, 32, 72, 70, 51, 42, 25, 24,
+  53, 55, 78, 50, 13, 40,48, 32, 26, 2, 
+  14, 33, 45, 72, 56, 44, 21, 88, 27, 68, 
+  15, 93, 98, 73, 28, 16, 46, 87, 28, 65, 
+  38, 67, 16,85, 63, 23, 69, 64, 91, 9, 
+  70, 81, 27, 97, 82, 6, 88, 3, 7, 46, 13, 
+  11, 64, 31, 26, 38, 28, 13, 17, 69, 90,
   1, 6, 7, 64, 43, 9, 73, 80, 98, 46,
   27, 22, 87, 49, 83, 6, 39, 42, 51,
   54, 84, 34, 53, 78, 40, 14, 5, 76, 62];
@@ -134,20 +156,6 @@ let sortedArr = numArr.sort();
 // console.log(binarySearch(sortedArr, 2));
 
 //Exercise 4 Dewey Decimal 
-
-const library = [
-  '005.133 Mike Cowlishaw: The REXX Language',
-  '005.133 Sams: Teach Yourself C++ In 21 Days',
-  '005.133 Bjarne Stroustrup: The C++ Programming Language',
-  '005.2762 Douglas Crockford: JavaScript: The Good Parts',
-  '005.2762 David Flanagan: JavaScript: The Definitive Guide',
-  '005.44684 Meinhard Schmidt: Windows Vista for Dummies',
-  '220.52081 Zondervan: NIV Study Bible',
-  '231.7652 Dr Russell Humphries: Starlight and Time',
-  '623.82509051 Frederick Thomas Jane: Jane\'s Fighting Ships',
-  '796.8092 Chuck Norris: The Official Chuck Norris Fact Book',
-];
-
 const library2 = [
       {dewey: '005.133', title: 'Mike Cowlishaw: The REXX Language'},
       {dewey: '005.133', title: 'Sams: Teach Yourself C++ In 21 Days'},
@@ -160,16 +168,17 @@ const library2 = [
       {dewey: '623.82509051', title: 'Frederick Thomas Jane: Jane\'s Fighting Ships'},
       {dewey: '796.8092', title: 'Chuck Norris: The Official Chuck Norris Fact Book'}
 ];
-//halve the array, the book you want is at that test case index, return that index
+/*halve the array, the book you want is at that test case index, return that index
 //greater than
+else if (item < value) {
+    return binarySearch(arr, value, index + 1, end);
+}
 //less than
+else if (item > value) {
+    return binarySearch(arr, value, start, index - 1);
+}
+*/
 
-// else if (item < value) {
-//     return binarySearch(arr, value, index + 1, end);
-// }
-// else if (item > value) {
-//     return binarySearch(arr, value, start, index - 1);
-// }
 function searchLib(lib, dewey, title, start, end) {
     //  var start = 0;
     //  var end = lib.length;
@@ -182,8 +191,8 @@ function searchLib(lib, dewey, title, start, end) {
 //if dewey is duplicate, then check title
   if (lib[index].dewey == dewey) {
     if (lib[index].title == title) {
-         return index;
-       }
+      return index;
+    }
   }
   else if (lib[index].dewey < dewey) {
     return searchLib(lib, dewey, title, index + 1, end);
@@ -199,4 +208,29 @@ function searchLib(lib, dewey, title, start, end) {
 
 //console.log(searchLib(library2, "005.133",
 //     "Bjarne Stroustrup: The C++ Programming Language", 0, library2.length));
-let ex4Array = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
+
+let order = new BinaryTree();
+order.insert(25);
+order.insert(15);
+order.insert(50);
+order.insert(10);
+order.insert(22);
+order.insert(35);
+order.insert(70);
+order.insert(4);
+order.insert(12);
+order.insert(18);
+order.insert(31);
+order.insert(44);
+order.insert(66);
+order.insert(90);
+order.insert(24);
+
+
+
+console.log(order.inOrder());
+console.log(order.preOrder());
+console.log(order.postOrder());
+
+
+
